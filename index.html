@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f5a3d2">
+<title>Amiiro | Pink Universe</title>
+
+<style>
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Georgia, serif;
+  color: white;
+  background: #10051c;
+  overflow-x: hidden;
+}
+
+#intro {
+  position: fixed;
+  inset: 0;
+  z-index: 5;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 24px;
+  background: radial-gradient(
+    circle at 50% 45%,
+    #8c347e,
+    #40164f 38%,
+    #10051c 78%
+  );
+  transition: opacity 1s, visibility 1s;
+}
+
+#intro.hide {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.intro-card {
+  max-width: 560px;
+}
+
+.intro-card h1 {
+  font-size: clamp(2.3rem, 8vw, 4.5rem);
+  color: #ffd9f0;
+  text-shadow: 0 0 22px #ff79c8;
+  margin-bottom: 16px;
+}
+
+.intro-card p {
+  font-size: 1.1rem;
+  line-height: 1.75;
+  color: #ffeaf6;
+  margin-bottom: 26px;
+}
+
+button {
+  border: 1px solid #ffd5ed;
+  background: linear-gradient(135deg, #ff9bd4, #c94eaa);
+  color: #4a1641;
+  border-radius: 999px;
+  padding: 14px 26px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 25px #ff8ccc88;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+}
+
+#universe {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  padding: 34px 16px 70px;
+  background: radial-gradient(
+    ellipse at 50% 0%,
+    #71306f,
+    #291039 45%,
+    #090512 100%
+  );
+}
+
+.stars,
+.stars:before,
+.stars:after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+  background-image:
+    radial-gradient(2px 2px at 12% 18%, #fff 98%, transparent),
+    radial-gradient(1px 1px at 34% 72%, #ffd9f2 98%, transparent),
+    radial-gradient(2px 2px at 81% 24%, #fff 98%, transparent),
+    radial-gradient(1px 1px at 68% 61%, #fff 98%, transparent),
+    radial-gradient(2px 2px at 92% 82%, #ffc5e8 98%, transparent),
+    radial-gradient(1px 1px at 22% 90%, #fff 98%, transparent);
+  background-size: 330px 280px;
+  animation: twinkle 5s ease-in-out infinite alternate;
+}
+
+.stars:before {
+  transform: scale(1.4);
+  opacity: .5;
+  animation-duration: 8s;
+}
+
+.stars:after {
+  transform: scale(.8);
+  opacity: .6;
+  animation-duration: 3.5s;
+}
+
+@keyframes twinkle {
+  from { opacity: .35; }
+  to { opacity: 1; }
+}
+
+header {
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+header h1 {
+  font-size: clamp(1.9rem, 6.5vw, 3.4rem);
+  margin: 0 0 10px;
+  color: #ffe1f2;
+  text-shadow: 0 0 20px #ff83cc;
+}
+
+header p {
+  color: #f9cce8;
+  letter-spacing: 1px;
+  line-height: 1.6;
+  font-size: 1.05rem;
+}
+
+.orbit-wrap {
+  height: 280px;
+  display: grid;
+  place-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.planet {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  position: relative;
+  background: radial-gradient(
+    circle at 32% 28%,
+    #ffe5f5,
+    #ff9bd5 22%,
+    #d34cae 55%,
+    #70266f 82%
+  );
+  box-shadow:
+    0 0 35px #ff8ed6,
+    0 0 90px #df5bb988,
+    inset -18px -18px 30px #531b59;
+}
+
+.planet:after {
+  content: "";
+  position: absolute;
+  width: 250px;
+  height: 70px;
+  border: 3px solid #ffd4eeaa;
+  border-radius: 50%;
+  left: 50%;
+  top: 54%;
+  transform: translate(-50%, -50%) rotate(-22deg);
+  box-shadow: 0 0 18px #ffb6e6;
+}
+
+.orbit {
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border: 1px solid #ffd4ee66;
+  border-radius: 50%;
+  animation: spin 18s linear infinite;
+}
+
+.orbit:before,
+.orbit:after {
+  content: "✦";
+  position: absolute;
+  color: #fff3fb;
+  text-shadow: 0 0 12px #ff9bd4;
+  font-size: 22px;
+}
+
+.orbit:before {
+  top: 22px;
+  left: 36px;
+}
+
+.orbit:after {
+  bottom: 24px;
+  right: 25px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.open-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  z-index: 1;
+  margin: 12px auto 32px;
+  max-width: 600px;
+}
+
+.open-area button {
+  width: 100%;
+  max-width: 480px;
+  line-height: 1.45;
+}
+
+.content-box {
+  display: none;
+  position: relative;
+  z-index: 1;
+  max-width: 850px;
+  margin: 0 auto 28px;
+  padding: clamp(20px, 5vw, 42px);
+  background: linear-gradient(145deg, #fff0f8f2, #f9d9edee);
+  color: #512344;
+  border: 1px solid white;
+  border-radius: 24px;
+  box-shadow: 0 15px 55px #0008, 0 0 35px #ff9bd466;
+  line-height: 1.95;
+  font-size: 1.05rem;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.content-box.show {
+  display: block;
+  animation: appear .9s ease both;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.small-note {
+  text-align: center;
+  color: #f7cde7;
+  margin-top: 35px;
+  font-size: .9rem;
+  position: relative;
+  z-index: 1;
+}
+
+.heart {
+  color: #ffb0dc;
+}
+
+@media(max-width:480px) {
+  .orbit-wrap {
+    height: 240px;
+  }
+
+  .planet {
+    width: 145px;
+    height: 145px;
+  }
+
+  .orbit {
+    width: 220px;
+    height: 220px;
+  }
+
+  .content-box {
+    font-size: .98rem;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="intro">
+  <div class="intro-card">
+    <h1>Amiiro ✨</h1>
+
+    <p>
+      Kusoo dhawoow Markii saddexaad aduunkaad adigu lahayD YariisteyDii ee aduunka mucaashaqiinta Markaan waxaad usoo booqatay 100 maalmood ay noo buuxsatau xiriirkeena aadka uquruxda badan mar labaad Welcome Princess 👸
+    </p>
+
+    <button onclick="enterWorld()">
+      Booqo Aduunkaaga
+    </button>
+  </div>
+</div>
+
+<main id="universe">
+
+  <div class="stars"></div>
+
+  <header>
+    <h1>Aduunka khaaskaa ee Amiiro Qurux badan</h1>
+    <p>✧ Indhahaagu haku raaxeestaan Quruxda aduunkaaga hooyo mcn ✧</p>
+  </header>
+
+  <div class="orbit-wrap">
+    <div class="orbit"></div>
+    <div class="planet"></div>
+  </div>
+
+  <div class="open-area">
+    <button id="openBtn" onclick="openLetter()">
+      Gal Fariinta Uu kuusido qalbigii 100 maalmood Aadka kuujeclaa🫶😋
+    </button>
+
+    <button id="poemBtn" onclick="openPoem()">
+      Gal Geeraarkaa khaaskaa ee adiga laguugu talagalay Amiiro😋
+    </button>
+  </div>
+
+  <article id="letter" class="content-box"></article>
+  <article id="poem" class="content-box"></article>
+
+  <p class="small-note">
+    Adduunkan yar waxaa loogu talagalay Amiiro
+    <span class="heart">♡</span>
+  </p>
+
+</main>
+
+<script>
+
+const message = `BoqoradaaN jaclaaday Amiiro Ismail djama Marka hore waxaan ku salamaaya salaan kaaga timid qalbigii aadka kuu jeclaaday Oo adiga un kugu koobnaaday Salaama 🫶🤗
+
+Maanta Ay bishu tahay 17/11/2026 Waxay ku beegantahay 3bilood iyo 10 bari aan adiga ku aqaano amaba aan is naqaano Hooyo  Waa 100 maalmood oo aan bartay wax walbo qurxoon Gaar ahaan adiga Oo ahaa waxa ugu qurxan een bartay Runtii Hadaan dhaho qeex Quruxda amiiro Ma qeexi xitaa malala sheegi karo Oo maba ahan waxaan qiyaasi karo Wlhi balse inta yar ee arkay Oon ka arkay quruxdaada Waa kuwo aan aad ula cajabaya YariisteyDii Indhahaaga Oo iyagaba ah kuwa kaliya ee aadka ujeclahay markii adiga lagaasoo tago iyagu waa kuwo usameesan Si cajaa'ib Oo aad uquruxoon uwaaween sida deerada 🦌
+عَيْنَاكِ يَا أَمِيرَةُ كَعَيْنَيِ الْغَزَالِ، فِيهِمَا سِحْرُ الْجَمَالِ وَبَرَاءَةُ الطِّفْلِ، وَمِنْ نَظْرَةٍ وَاحِدَةٍ تَأْسِرَانِ الْقُلُوبَ. ❤️🦌
+Timahaaga Iyagana waa kuwo aan udharero markaan arko iyaga waayo maahan kaliya qurux iyaga waa caraf waa udgoon waa Jileec waa sida faraska oo kale m.a 🫶😋
+Dhexyar dhuubo Quruxdaba aday kaa bilaabataa adayna kugu dhamaataa  wlhie 
+Saa'ida Saa'id qurux YariisteyDii Quruxudaadaan Mar isku dayaya inaa safiro ama qeexo Balse waan uwaayay micno gaar ah oon ku sharaxo balse waxaan kusoo koobay erayo carabiyaa  Waxaana ku iri 
+أَمِيرَةُ، أَنْتِ جَمَالٌ تَعْجِزُ الْكَلِمَاتُ عَنْ وَصْفِهِ، وَقَمَرٌ يَخْجَلُ الْبَدْرُ مِنْ نُورِهِ، فَسُبْحَانَ مَنْ أَبْدَعَ فِي خَلْقِكِ. ❤️✨
+
+Marka xigta horta kow alle ayaa mahadaa leh Oo adigaa ah nuurka ilaa baray taasna waa umahadceliyaa alle  YariisteyDii Marka labaad alle wuxuu leeyahay ملاا يشكر الناس لا يشكر الله  
+
+Waxaa xaqiiqa ah Mommy Inaan adiga aad kuu jeclaaday Wlhi 100kaa maalina Wlhi waligay kaama xiisa dhicin Sidaa kuu bartay maalintii jimcaha ahayD Aa ilaa maanta Oy talaado tahay Aa wili sidii kuuxiiseeyaa BoqoradayDii Waxa kaloo xaqiiqa ah Inaa adiga aad uxanaaq badantahay aadna umaseer badanthy Taasna waaba waxa kaliyoon aan isdhaho Wuu igu siyaadiyay jaceylkaan kuuqabo Adiga waad xanaaqdaa Saacado ama maalin dhan ama maalmo balse markaad xanaaq bogoto aad igu nafisto Baad caadi soo noqotaa ana markaas ka faa'idaysata maadaama aad tahay markaas qof Cusub ama igu cusub camala Markaaslee jaceyl xad dhaaf kuusheegtaa adigana maadaama aad ubaahantahay qof si dagan kuula hadlo anaa isku dayo inaa noqdo qofka uhoreeya Ee kudhaha eraydaas 😋😋😋😋😋😋😋
+
+Marka xigta hooyo mcn YariisteyDa boqoradaydii amiiradayDii Ani Marwlbo waxaan ahay garabkaaga Markay ku cidleenayaan Dadkaaga hooyo mcn gadaasheeD Waa ogahay waxaad dareemayso markay iyaga si xun kuula hadlaan Markaasna aad qaadato go'aamo qaldan Oo kugu zbbaya Xanaaaqaas Saa'idkaa Balse dhib malahan noloshaad kunooshahay ilaa waagaad iisheegtay wlhi oo bilaahi oo talhi marksta hapiiN kasta waan ka fikiraa Maxay sameen kartaa iyada Hada xaaladee kujirtaa Mida ugu daran waa in wadnaha lagaagaso booda Marwlbo hooyo taasna aadbay iidamaqdaa wlhi Si saa'idaa waliba Waxna kuuuma qaban karo balse kaliya waxaa awoodaa inaa Xoogaa jaanis kusiiyo Si aad hawo uqaadato unasoo nafisto Si aadan adoo wadnaha lagaa hayo usii xanaaqin ilahay xanuukaas iyo kuwo kale Hakaa caafiyo 🫶🥺🥺🫶🤲
+
+Waa tu teclahay hooyo aadbaan tuu teclahay si saa'idaa wiliba Oo xad dhaafa Gabar yaroo aad uqurx badan tahay Aad udabaceed fiican Aadna unaxariis badan naxariistaadu yaysan banaanka imaan balse wlhi ani waa dareemaa waana ku noolahaya xasuustaada iyo sawiradaada 
+Waana ku jeclaan doonaa intaan noolahaya BoqoradayDii Qof labrtaa tahay Oo lala dhaqmo waxaana aad urajeenaya ilahayna ka barayaa inaa kulano Isla faraxno anagoo wada jira isla fariisano Cunto isla cuno waqti qurux badan qaadano Aadna iinoqoto marwo Aan kufaano marwlbo I.a Waana ku jeclhy amiiro 🫶🥺🫶🥺🫶🥺
+
+`;
+
+const poemMessage = `Gabadhii JapuuTi 😋🫶
+
+Riyo aan rabaa rumowday
+Raaliyaan helay ii wanaagsan
+Qofbaan helay aan ku raystay
+Rakaaday sidaan rabooday
+Rabibaa garabkey istaagay
+Qofbaan Ruuxdayda siiyay
+Runtu waa lama huraane
+Amiira waan ku raystay
+🥹🫶🤲
+
+
+Bilicda wajigeeDa suuban
+Baalashada indhaheeDa dooxan
+Quruxda barakada ku dheehan
+Bilkhayr weeye arageedu
+😋🫶😋
+
+
+Indhahaan deerada lamoodo
+Naflihii kugu Arkaaba daaleen
+Dushaada qofkii Laraacaa
+Carafbaa sankiisa dooxda
+Ileen dookhaa cajiibee
+Amiiro waa Dahab lamooDka
+😋🫶😋🫶😋🫶
+
+
+Anagaa kala xad dheere
+Muxuu xiisuhu Badanaaday
+Maxaan jeclhy xageeda
+Anoo xay ah inaan lajoogo
+Ileen tani waa xad dhaafe
+Maxaa qurux loo xambaarshay
+🫶😋
+
+
+Gabadhaan doortay dheeheeda
+Dherarka tumaheeda daadsan
+Quruxda Dhaqanbaa udheer
+Dhalaalkuna waa ugooni
+Raboow igu dhaadatee
+Yagleel qoys dhexdeena suuban
+🫶😋🫶😋
+
+
+Arkooday Gabadhii JapuuTi 
+Amaanay Quruxdeeda gaarkaa
+Intaan duni sooba joogay
+Qofaan Lacajabo abuurkeeda
+Wili saan uguma waalan🥺
+🫶😋🫶😋`;
+
+function enterWorld() {
+  document.getElementById('intro').classList.add('hide');
+
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+}
+
+function openLetter() {
+  const letter = document.getElementById('letter');
+
+  letter.textContent = message;
+  letter.classList.add('show');
+
+  document.getElementById('openBtn').style.display = 'none';
+
+  setTimeout(() => {
+    letter.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  }, 100);
+}
+
+function openPoem() {
+  const poem = document.getElementById('poem');
+
+  poem.textContent = poemMessage;
+  poem.classList.add('show');
+
+  document.getElementById('poemBtn').style.display = 'none';
+
+  setTimeout(() => {
+    poem.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  }, 100);
+}
+
+</script>
+
+</body>
+</html>
